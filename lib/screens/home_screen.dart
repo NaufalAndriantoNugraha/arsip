@@ -1,3 +1,4 @@
+import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -20,7 +21,8 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(child: Expanded(child: Text('Hello, World!'))),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>
+            Navigator.pushNamed(context, CreateNoteScreen.routeName),
         child: Icon(Icons.add),
       ),
     );
