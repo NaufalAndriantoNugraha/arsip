@@ -70,4 +70,12 @@ class NoteDatabase {
       ],
     );
   }
+
+  Future<List<Note>> getNotes() async {
+    final db = await database;
+    final notes = await db.rawQuery('SELECT * FROM notes ORDER BY id DESC');
+    return List.generate(notes.length, (index) {
+      return Note.fromMap(notes[index]);
+    });
+  }
 }
