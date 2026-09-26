@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:arsip/models/note.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -46,5 +47,27 @@ class NoteDatabase {
 
     _database = await _initDatabase();
     return _database!;
+  }
+
+  Future<int> insertNote(Note note) async {
+    final db = await database;
+    return await db.rawInsert(
+      '''
+      INSERT INTO notes (
+        title,
+        content,
+        is_pinned,
+        created_at,
+        updated_at
+      ) VALUES (?, ?, ?, ?, ?)
+    ''',
+      [
+        note.title,
+        note.content,
+        note.isPinned ? 1 : 0,
+        note.createdAt.toIso8601String(),
+        note.updatedAt.toIso8601String(),
+      ],
+    );
   }
 }

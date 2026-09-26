@@ -1,10 +1,11 @@
 import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/home_screen.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
