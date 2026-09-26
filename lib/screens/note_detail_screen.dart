@@ -1,26 +1,29 @@
-import 'package:arsip/providers/create_note_provider.dart';
+import 'package:arsip/models/note.dart';
+import 'package:arsip/providers/note_detail_provider.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:arsip/widgets/note_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
-class CreateNoteScreen extends ConsumerWidget {
-  static const String routeName = '/create_note_screen';
+class NoteDetailScreen extends ConsumerWidget {
+  static const String routeName = '/note_detail_screen';
 
   const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Note args = ModalRoute.of(context)!.settings.arguments as Note;
+
     final theme = Theme.of(context);
 
-    final notifier = ref.read(createNoteProvider.notifier);
-    final isPinned = ref.watch(createNoteProvider);
+    final notifier = ref.read(noteDetailProvider(args).notifier);
+    final isPinned = ref.watch(noteDetailProvider(args));
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
-        await notifier.createNote();
+        await notifier.updateNote();
         if (context.mounted) {
           Navigator.pop(context);
         }
@@ -29,7 +32,7 @@ class CreateNoteScreen extends ConsumerWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () async {
-              await notifier.createNote();
+              await notifier.updateNote();
               if (context.mounted) {
                 Navigator.pop(context);
               }
@@ -37,11 +40,11 @@ class CreateNoteScreen extends ConsumerWidget {
             icon: Icon(Icons.arrow_back),
           ),
           actions: [
-            IconButton.filledTonal(
+            IconButton(
               onPressed: () => notifier.togglePinned(),
               icon: Icon(isPinned ? Icons.push_pin : Icons.push_pin_outlined),
             ),
-            SizedBox(width: Spacing.md),
+            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline)),
           ],
         ),
         body: Padding(

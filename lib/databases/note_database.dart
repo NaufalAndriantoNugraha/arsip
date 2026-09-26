@@ -78,4 +78,18 @@ class NoteDatabase {
       return Note.fromMap(notes[index]);
     });
   }
+
+  Future<void> updateNoteById(
+    int id,
+    String title,
+    String content,
+    bool isPinned,
+    DateTime updatedAt,
+  ) async {
+    final db = await database;
+    await db.rawUpdate(
+      'UPDATE notes SET title=?, content=?, is_pinned=?, updated_at=? WHERE id=?',
+      [title, content, isPinned ? 1 : 0, updatedAt.toIso8601String(), id],
+    );
+  }
 }

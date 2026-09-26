@@ -1,5 +1,6 @@
 import 'package:arsip/providers/home_provider.dart';
 import 'package:arsip/screens/create_note_screen.dart';
+import 'package:arsip/screens/note_detail_screen.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:arsip/widgets/note_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,7 +35,17 @@ class HomeScreen extends ConsumerWidget {
               itemCount: notes.length,
               itemBuilder: (context, index) {
                 final note = notes[index];
-                return NoteItem(note: note, onTap: () {});
+                return NoteItem(
+                  note: note,
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      NoteDetailScreen.routeName,
+                      arguments: note,
+                    );
+                    await notfiier.fetchNotes();
+                  },
+                );
               },
             ),
           );
