@@ -1,3 +1,4 @@
+import 'package:arsip/models/note.dart';
 import 'package:arsip/providers/home_provider.dart';
 import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
@@ -29,26 +30,19 @@ class HomeScreen extends ConsumerWidget {
       ),
       body: notesAsync.when(
         data: (notes) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
-            child: ListView.builder(
-              itemCount: notes.length,
-              itemBuilder: (context, index) {
-                final note = notes[index];
-                return NoteItem(
-                  note: note,
-                  onTap: () async {
-                    await Navigator.pushNamed(
-                      context,
-                      NoteDetailScreen.routeName,
-                      arguments: note,
-                    );
-                    await notfiier.fetchNotes();
-                  },
-                );
-              },
-            ),
-          );
+          if (notes.pinnedNotes.isNotEmpty) {
+            return allNotes(
+              pinnedNotes: notes.pinnedNotes,
+              unpinedNotes: notes.unpinnedNotes,
+              fetchNotes: notfiier.fetchNotes,
+              context: context,
+            );
+          } else {
+            return unpinnedNotes(
+              notes: notes.unpinnedNotes,
+              fetchNotes: notfiier.fetchNotes,
+            );
+          }
         },
         error: (error, stackTrace) {
           return Center(child: Text('Gagal memuat catatan: $error'));
@@ -61,6 +55,95 @@ class HomeScreen extends ConsumerWidget {
           await notfiier.fetchNotes();
         },
         child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget allNotes({
+    required List<Note> pinnedNotes,
+    required List<Note> unpinedNotes,
+    required Future<void> Function() fetchNotes,
+    required BuildContext context,
+  }) {
+    return SingleChildScrollView(
+      child: Column(
+        spacing: Spacing.xl,
+        children: [
+          noteList(
+            title: 'Disematkan',
+            notes: pinnedNotes,
+            fetchNotes: fetchNotes,
+            context: context,
+          ),
+          noteList(
+            title: 'Lainnya',
+            notes: unpinedNotes,
+            fetchNotes: fetchNotes,
+            context: context,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget noteList({
+    required String title,
+    required List<Note> notes,
+    required Future<void> Function() fetchNotes,
+    required BuildContext context,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Spacing.md),
+            child: Text(title),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: notes.map((note) {
+              return NoteItem(
+                note: note,
+                onTap: () async {
+                  await Navigator.pushNamed(
+                    context,
+                    NoteDetailScreen.routeName,
+                    arguments: note,
+                  );
+                  await fetchNotes();
+                },
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget unpinnedNotes({
+    required List<Note> notes,
+    required Future<void> Function() fetchNotes,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
+      child: ListView.builder(
+        itemCount: notes.length,
+        itemBuilder: (context, index) {
+          final note = notes[index];
+          return NoteItem(
+            note: note,
+            onTap: () async {
+              await Navigator.pushNamed(
+                context,
+                NoteDetailScreen.routeName,
+                arguments: note,
+              );
+              await fetchNotes();
+            },
+          );
+        },
       ),
     );
   }

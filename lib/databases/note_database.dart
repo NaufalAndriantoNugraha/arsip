@@ -79,6 +79,26 @@ class NoteDatabase {
     });
   }
 
+  Future<List<Note>> getUnpinnedNotes() async {
+    final db = await database;
+    final notes = await db.rawQuery(
+      'SELECT * FROM notes WHERE is_pinned = 0 ORDER BY id DESC',
+    );
+    return List.generate(notes.length, (index) {
+      return Note.fromMap(notes[index]);
+    });
+  }
+
+  Future<List<Note>> getPinnedNotes() async {
+    final db = await database;
+    final notes = await db.rawQuery(
+      'SELECT * FROM notes WHERE is_pinned = 1 ORDER BY id DESC',
+    );
+    return List.generate(notes.length, (index) {
+      return Note.fromMap(notes[index]);
+    });
+  }
+
   Future<void> updateNoteById(
     int id,
     String title,
