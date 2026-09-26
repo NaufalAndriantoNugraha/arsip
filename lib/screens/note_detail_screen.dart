@@ -1,5 +1,6 @@
 import 'package:arsip/models/note.dart';
 import 'package:arsip/providers/note_detail_provider.dart';
+import 'package:arsip/screens/home_screen.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:arsip/widgets/note_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +45,40 @@ class NoteDetailScreen extends ConsumerWidget {
               onPressed: () => notifier.togglePinned(),
               icon: Icon(isPinned ? Icons.push_pin : Icons.push_pin_outlined),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline)),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Hapus Catatan'),
+                      content: Text(
+                        'Apakah Anda yakin ingin menghapus catatan ini?',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Batal'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await notifier.deleteNote();
+                            if (context.mounted) {
+                              Navigator.popUntil(
+                                context,
+                                ModalRoute.withName(HomeScreen.routeName),
+                              );
+                            }
+                          },
+                          child: Text('Iya'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.delete_outline),
+            ),
           ],
         ),
         body: Padding(

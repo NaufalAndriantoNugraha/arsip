@@ -37,8 +37,18 @@ class NoteDetailNotifier extends Notifier<bool> {
 
     final title = titleController.text.trim();
     final content = contentController.text.trim();
-    final now = DateTime.now();
 
+    if (title.isEmpty && content.isEmpty) {
+      await db.deleteNoteById(args.id!);
+      return;
+    }
+
+    final now = DateTime.now();
     await db.updateNoteById(args.id!, title, content, state, now);
+  }
+
+  Future<void> deleteNote() async {
+    final db = NoteDatabase();
+    await db.deleteNoteById(args.id!);
   }
 }

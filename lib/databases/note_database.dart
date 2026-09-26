@@ -92,4 +92,9 @@ class NoteDatabase {
       [title, content, isPinned ? 1 : 0, updatedAt.toIso8601String(), id],
     );
   }
+
+  Future<void> deleteNoteById(int id) async {
+    final db = await database;
+    await db.rawDelete('DELETE FROM notes WHERE id=?', [id]);
+  }
 }
