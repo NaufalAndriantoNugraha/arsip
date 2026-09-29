@@ -58,7 +58,7 @@ class CreateNoteScreen extends ConsumerWidget {
                 ),
                 NoteTextField(
                   hintText: 'Konten catatan',
-                  maxLength: 150,
+                  maxLength: 5000,
                   textStyle: theme.textTheme.bodyLarge!,
                   hintTextColor: theme.hintColor,
                   controller: notifier.contentController,

@@ -117,4 +117,15 @@ class NoteDatabase {
     final db = await database;
     await db.rawDelete('DELETE FROM notes WHERE id=?', [id]);
   }
+
+  Future<List<Note>> searchNotes(String keyword) async {
+    final db = await database;
+    final notes = await db.rawQuery(
+      'SELECT * FROM notes WHERE title LIKE ? OR content LIKE ?',
+      ['%$keyword%', '%$keyword%'],
+    );
+    return List.generate(notes.length, (index) {
+      return Note.fromMap(notes[index]);
+    });
+  }
 }

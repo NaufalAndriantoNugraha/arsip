@@ -2,6 +2,7 @@ import 'package:arsip/models/note.dart';
 import 'package:arsip/providers/home_provider.dart';
 import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
+import 'package:arsip/screens/search_notes_screen.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:arsip/widgets/note_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +25,13 @@ class HomeScreen extends ConsumerWidget {
         title: Text('Arsip'),
         titleTextStyle: theme.textTheme.headlineLarge,
         actions: [
-          IconButton.filledTonal(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton.filledTonal(
+            onPressed: () async {
+              await Navigator.pushNamed(context, SearchNotesScreen.routeName);
+              await notfiier.fetchNotes();
+            },
+            icon: Icon(Icons.search),
+          ),
           SizedBox(width: Spacing.md),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/home_screen.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
+import 'package:arsip/screens/search_notes_screen.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (context) => HomeScreen(),
         CreateNoteScreen.routeName: (context) => CreateNoteScreen(),
         NoteDetailScreen.routeName: (context) => NoteDetailScreen(),
+        SearchNotesScreen.routeName: (context) => SearchNotesScreen(),
       },
     );
   }
