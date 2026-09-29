@@ -1,3 +1,4 @@
+import 'package:arsip/l10n/app_localizations.dart';
 import 'package:arsip/models/note.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:arsip/widgets/note_list.dart';
@@ -19,19 +20,20 @@ class AllNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: Spacing.xl,
         children: [
           NoteList(
-            title: 'Disematkan',
+            title: localization.pinnedNotesLabel,
             notes: pinnedNotes,
             fetchNotes: fetchNotes,
             context: context,
           ),
           NoteList(
-            title: 'Lainnya',
+            title: localization.unpinnedNotesLabel,
             notes: unpinedNotes,
             fetchNotes: fetchNotes,
             context: context,

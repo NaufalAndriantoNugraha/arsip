@@ -1,3 +1,4 @@
+import 'package:arsip/l10n/app_localizations.dart';
 import 'package:arsip/providers/search_notes_provider.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
 import 'package:arsip/utils/spacing.dart';
@@ -14,6 +15,7 @@ class SearchNotesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final localization = AppLocalizations.of(context)!;
 
     final notifier = ref.read(searchNotesProvider.notifier);
     final notesAsync = ref.watch(searchNotesProvider);
@@ -25,7 +27,7 @@ class SearchNotesScreen extends ConsumerWidget {
           onChanged: (value) => notifier.searchNotes(),
           decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Cari catatan',
+            hintText: localization.searchNotesScreenSearchInputHintText,
             hintStyle: TextStyle(color: theme.hintColor),
           ),
         ),
@@ -35,8 +37,8 @@ class SearchNotesScreen extends ConsumerWidget {
           if (notes.isEmpty) {
             return EmptyNotes(
               svgPath: 'assets/undraw_reading_notes.svg',
-              title: 'Cari catatan Anda',
-              description: 'Anda dapat mengetikkan kata kunci pada kolom pencarian di atas',
+              title: localization.searchNotesScreenEmptyNotesTitle,
+              description: localization.searchNotesScreenEmptyNotesDescription,
             );
           }
 
@@ -61,7 +63,7 @@ class SearchNotesScreen extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) =>
-            Center(child: Text('Gagal memuat catatan: $error')),
+            Center(child: Text(localization.fetchNotesError(error.toString()))),
         loading: () => Center(child: CircularProgressIndicator()),
       ),
     );

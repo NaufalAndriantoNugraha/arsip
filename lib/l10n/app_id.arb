@@ -1,0 +1,83 @@
+{
+    "@@locale": "id",
+
+    "appName": "Arsip",
+    "@appName": {
+        "description": "Nama aplikasi"
+    },
+
+    "homeScreenEmptyNotesTitle": "Anda belum memiliki catatan",
+    "@homeScreenEmptyNotesTitle": {
+        "description": "Judul yang menyatakan pengguna belum memiliki catatan"
+    },
+
+    "homeScreenEmptyNotesDescription": "Anda dapat membuat catatan sebagai daftar tugas, pengingat, atau sarana menyimpan ide-ide Anda.",
+    "@homeScreenEmptyNotesDescription": {
+        "description": "Deskripsi yang menyatakan pengguna belum memiliki catatan"
+    },
+
+    "createNoteScreenTitleHintText": "Judul catatan",
+    "@createNoteScreenTitleHintText": {
+        "description": "Hint text untuk input judul catatan"
+    },
+
+    "createNoteScreenContentHintText": "Isi catatan",
+    "@createNoteScreenContentHintText": {
+        "description": "Hint text untuk input isi catatan"
+    },
+
+    "deleteNoteWidgetTitle": "Hapus Catatan",
+    "@deleteNoteWidgetTitle": {
+        "description": "Judul dialog konfirmasi hapus catatan"
+    },
+
+    "deleteNoteWidgetDescription": "Apakah Anda yakin ingin menghapus catatan ini?",
+    "@deleteNoteWidgetDescription": {
+        "description": "Isi dialog konfirmasi hapus catatan"
+    },
+
+    "deleteNoteWidgetAgreement": "Iya",
+    "@deleteNoteWidgetAgreement": {
+        "description": "Tombol menyetujui penghapusan catatan"
+    },
+
+    "deleteNoteWidgetDisagreement": "Tidak",
+    "@deleteNoteWidgetDisagreement": {
+        "description": "Tombol membatalkan penghapusan catatan"
+    },
+
+    "searchNotesScreenSearchInputHintText": "Cari catatan",
+    "@searchNotesScreenSearchInputHintText": {
+        "description": "Hint text untuk input pencarian catatan"
+    },
+
+    "searchNotesScreenEmptyNotesTitle": "Cari catatan Anda",
+    "@searchNotesScreenEmptyNotesTitle": {
+        "description": "Judul saat layar pencarian belum diisi kata kunci"
+    },
+
+    "searchNotesScreenEmptyNotesDescription": "Anda dapat mengetikkan kata kunci pada kolom pencarian di atas.",
+    "@searchNotesScreenEmptyNotesDescription": {
+        "description": "Deskripsi saat layar pencarian belum diisi kata kunci"
+    },
+
+    "fetchNotesError": "Gagal memuat catatan: {error}",
+    "@fetchNotesError": {
+        "description": "Pesan error umum saat gagal memuat catatan",
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+
+    "pinnedNotesLabel": "Disematkan",
+    "@pinnedNotesLabel": {
+        "description": "Label untuk bagian catatan yang disematkan"
+    },
+
+    "unpinnedNotesLabel": "Lainnya",
+    "@unpinnedNotesLabel": {
+        "description": "Label untuk bagian catatan yang tidak disematkan"
+    }
+}

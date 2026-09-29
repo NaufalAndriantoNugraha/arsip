@@ -1,3 +1,4 @@
+import 'package:arsip/l10n/app_localizations.dart';
 import 'package:arsip/models/note.dart';
 import 'package:arsip/providers/note_detail_provider.dart';
 import 'package:arsip/screens/home_screen.dart';
@@ -16,6 +17,7 @@ class NoteDetailScreen extends ConsumerWidget {
     final Note args = ModalRoute.of(context)!.settings.arguments as Note;
 
     final theme = Theme.of(context);
+    final localization = AppLocalizations.of(context)!;
 
     final notifier = ref.read(noteDetailProvider(args).notifier);
     final isPinned = ref.watch(noteDetailProvider(args));
@@ -51,14 +53,14 @@ class NoteDetailScreen extends ConsumerWidget {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Hapus Catatan'),
-                      content: Text(
-                        'Apakah Anda yakin ingin menghapus catatan ini?',
-                      ),
+                      title: Text(localization.deleteNoteWidgetTitle),
+                      content: Text(localization.deleteNoteWidgetDescription),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text('Batal'),
+                          child: Text(
+                            localization.deleteNoteWidgetDisagreement,
+                          ),
                         ),
                         TextButton(
                           onPressed: () async {
@@ -70,7 +72,7 @@ class NoteDetailScreen extends ConsumerWidget {
                               );
                             }
                           },
-                          child: Text('Iya'),
+                          child: Text(localization.deleteNoteWidgetAgreement),
                         ),
                       ],
                     );
@@ -87,14 +89,14 @@ class NoteDetailScreen extends ConsumerWidget {
             child: Column(
               children: [
                 NoteTextField(
-                  hintText: 'Judul Catatan',
+                  hintText: localization.createNoteScreenTitleHintText,
                   maxLength: 150,
                   textStyle: theme.textTheme.titleLarge!,
                   hintTextColor: theme.hintColor,
                   controller: notifier.titleController,
                 ),
                 NoteTextField(
-                  hintText: 'Konten catatan',
+                  hintText: localization.createNoteScreenContentHintText,
                   maxLength: 5000,
                   textStyle: theme.textTheme.bodyLarge!,
                   hintTextColor: theme.hintColor,

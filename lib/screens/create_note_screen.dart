@@ -1,3 +1,4 @@
+import 'package:arsip/l10n/app_localizations.dart';
 import 'package:arsip/providers/create_note_provider.dart';
 import 'package:arsip/utils/spacing.dart';
 import 'package:arsip/widgets/note_text_field.dart';
@@ -12,6 +13,7 @@ class CreateNoteScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final localization = AppLocalizations.of(context)!;
 
     final notifier = ref.read(createNoteProvider.notifier);
     final isPinned = ref.watch(createNoteProvider);
@@ -50,14 +52,14 @@ class CreateNoteScreen extends ConsumerWidget {
             child: Column(
               children: [
                 NoteTextField(
-                  hintText: 'Judul Catatan',
+                  hintText: localization.createNoteScreenTitleHintText,
                   maxLength: 150,
                   textStyle: theme.textTheme.titleLarge!,
                   hintTextColor: theme.hintColor,
                   controller: notifier.titleController,
                 ),
                 NoteTextField(
-                  hintText: 'Konten catatan',
+                  hintText: localization.createNoteScreenContentHintText,
                   maxLength: 5000,
                   textStyle: theme.textTheme.bodyLarge!,
                   hintTextColor: theme.hintColor,

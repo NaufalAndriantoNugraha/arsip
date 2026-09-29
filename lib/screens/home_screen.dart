@@ -1,3 +1,4 @@
+import 'package:arsip/l10n/app_localizations.dart';
 import 'package:arsip/providers/home_provider.dart';
 import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/search_notes_screen.dart';
@@ -16,13 +17,14 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final localization = AppLocalizations.of(context)!;
 
     final notfiier = ref.read(homeProvider.notifier);
     final notesAsync = ref.watch(homeProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Arsip'),
+        title: Text(localization.appName),
         titleTextStyle: theme.textTheme.headlineLarge,
         actions: [
           IconButton.filledTonal(
@@ -40,8 +42,8 @@ class HomeScreen extends ConsumerWidget {
           if (notes.pinnedNotes.isEmpty && notes.unpinnedNotes.isEmpty) {
             return EmptyNotes(
               svgPath: 'assets/undraw_add_notes.svg',
-              title: 'Anda belum memiliki catatan',
-              description: 'Anda dapat membuat catatan sebagai daftar tugas, pengingat, atau sarana menyimpan ide-ide Anda',
+              title: localization.homeScreenEmptyNotesTitle,
+              description: localization.homeScreenEmptyNotesDescription,
             );
           }
 
@@ -60,7 +62,9 @@ class HomeScreen extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) {
-          return Center(child: Text('Gagal memuat catatan: $error'));
+          return Center(
+            child: Text(localization.fetchNotesError(error.toString())),
+          );
         },
         loading: () => Center(child: CircularProgressIndicator()),
       ),

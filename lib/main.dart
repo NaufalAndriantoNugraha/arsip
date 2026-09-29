@@ -1,3 +1,4 @@
+import 'package:arsip/l10n/app_localizations.dart';
 import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/home_screen.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
@@ -21,6 +22,11 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: FlexThemeData.light(scheme: FlexScheme.shadBlue),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.shadBlue),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
