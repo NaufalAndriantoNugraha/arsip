@@ -1,6 +1,7 @@
 import 'package:arsip/providers/search_notes_provider.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
 import 'package:arsip/utils/spacing.dart';
+import 'package:arsip/widgets/empty_notes.dart';
 import 'package:arsip/widgets/note_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
@@ -31,6 +32,14 @@ class SearchNotesScreen extends ConsumerWidget {
       ),
       body: notesAsync.when(
         data: (notes) {
+          if (notes.isEmpty) {
+            return EmptyNotes(
+              svgPath: 'assets/undraw_reading_notes.svg',
+              title: 'Cari catatan Anda',
+              description: 'Anda dapat mengetikkan kata kunci pada kolom pencarian di atas',
+            );
+          }
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: Spacing.xl),
             child: ListView.builder(

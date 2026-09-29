@@ -4,6 +4,7 @@ import 'package:arsip/screens/create_note_screen.dart';
 import 'package:arsip/screens/note_detail_screen.dart';
 import 'package:arsip/screens/search_notes_screen.dart';
 import 'package:arsip/utils/spacing.dart';
+import 'package:arsip/widgets/empty_notes.dart';
 import 'package:arsip/widgets/note_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
@@ -37,6 +38,14 @@ class HomeScreen extends ConsumerWidget {
       ),
       body: notesAsync.when(
         data: (notes) {
+          if (notes.pinnedNotes.isEmpty && notes.unpinnedNotes.isEmpty) {
+            return EmptyNotes(
+              svgPath: 'assets/undraw_add_notes.svg',
+              title: 'Anda belum memiliki catatan',
+              description: 'Anda dapat membuat catatan sebagai daftar tugas, pengingat, atau sarana menyimpan ide-ide Anda',
+            );
+          }
+
           if (notes.pinnedNotes.isNotEmpty) {
             return allNotes(
               pinnedNotes: notes.pinnedNotes,
